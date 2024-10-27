@@ -2,10 +2,26 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.MoveDirection;
 import static agh.ics.oop.OptionsParser.parser;
+import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.MapDirection;
 
 public class World {
     public static void main(String[] args) {
+
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
+
+        MapDirection mapDir = MapDirection.NORTH;
+        System.out.println(mapDir.toString());
+        System.out.println(mapDir.next());
+        System.out.println(mapDir.previous());
+        System.out.println(mapDir.toUnitVector());
+
         System.out.println("Start");
+
         MoveDirection[] moveDirections = parser(args);
 
         run(moveDirections);
