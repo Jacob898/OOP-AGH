@@ -44,7 +44,22 @@ class OptionsParserTest {
         //then
         assertArrayEquals(expected,OptionsParser.parser(args));
     }
-
+    @Test
+    void emptyParsersNothing() {
+        //given
+        String[] args = {""};
+        MoveDirection[] expected = {};
+        //then
+        assertArrayEquals(expected,OptionsParser.parser(args));
+    }
+    @Test
+    void spaceParsersNothing() {
+        //given
+        String[] args = {" "};
+        MoveDirection[] expected = {};
+        //then
+        assertArrayEquals(expected,OptionsParser.parser(args));
+    }
     @Test
     void otherThanLRFBParserNothing() {
         //given

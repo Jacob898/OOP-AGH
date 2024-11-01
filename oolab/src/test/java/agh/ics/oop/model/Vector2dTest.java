@@ -12,6 +12,7 @@ class Vector2dTest {
     @Test
     void doesEqualsWork() {
         assertFalse(v1.equals(v2));
+        assertFalse(v1.equals("test"));
         assertTrue(v1.equals(v1));
     }
 
@@ -32,12 +33,18 @@ class Vector2dTest {
 
     @Test
     void upperRight() {
-        assertEquals(new Vector2d(2,2), v1.upperRight(v3) );
+        assertEquals(new Vector2d(1,3), v1.upperRight(new Vector2d(-1,3))); //v1 first, new Vector2d second
+        assertEquals(new Vector2d(5,5), v3.upperRight(new Vector2d(5,5)) ); // v3 none, new Vector2d both
+        assertEquals(new Vector2d(3,2), v1.upperRight(new Vector2d(3,-1)) ); // v1 second, new Vector2d first
+        assertNotEquals(new Vector2d(-1,0), v3.upperRight(v2) ); // v3 none, v2 none
     }
 
     @Test
     void lowerLeft() {
-        assertEquals(new Vector2d(1,0), v1.lowerLeft(v3) );
+        assertEquals(new Vector2d(1,0), v1.lowerLeft(v3) ); //v1 first, v3 second
+        assertEquals(new Vector2d(-1,1), v2.lowerLeft(v1) ); // v2 both, v1 none
+        assertEquals(new Vector2d(-1,0), v3.lowerLeft(v2) ); // v3 second, v2 first
+        assertNotEquals(new Vector2d(2,2), v1.lowerLeft(v3) ); // v1 none, v3 none
     }
 
     @Test
