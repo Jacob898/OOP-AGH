@@ -18,7 +18,7 @@ public class Animal {
     public Vector2d getCoordinates() {
         return this.coordinates;
     }
-
+    //getter
     public MapDirection getDirection() {
         return this.direction;
     }
