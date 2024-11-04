@@ -2,56 +2,76 @@ package agh.ics.oop;
 
 import org.junit.jupiter.api.Test;
 import agh.ics.oop.model.MoveDirection;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OptionsParserTest {
+
     @Test
     void fParsersForward() {
         //given
         String[] args = {"f"};
-        MoveDirection[] expected = {MoveDirection.FORWARD};
+        List<MoveDirection> expected = List.of(MoveDirection.FORWARD);
 
         //then
-        assertArrayEquals(expected,OptionsParser.parser(args));
+        assertEquals(expected,OptionsParser.parse(args));
     }
 
     @Test
     void bParsersBackward() {
         //given
         String[] args = {"b"};
-        MoveDirection[] expected = {MoveDirection.BACKWARD};
+        List<MoveDirection> expected = List.of(MoveDirection.BACKWARD);
 
         //then
-        assertArrayEquals(expected,OptionsParser.parser(args));
+        assertEquals(expected,OptionsParser.parse(args));
     }
 
     @Test
     void rParsersRight() {
         //given
         String[] args = {"r"};
-        MoveDirection[] expected = {MoveDirection.RIGHT};
+        List<MoveDirection> expected = List.of(MoveDirection.RIGHT);
 
         //then
-        assertArrayEquals(expected,OptionsParser.parser(args));
+        assertEquals(expected,OptionsParser.parse(args));
     }
 
     @Test
     void lParsersLeft() {
         //given
         String[] args = {"l"};
-        MoveDirection[] expected = {MoveDirection.LEFT};
+        List<MoveDirection> expected = List.of(MoveDirection.LEFT);
 
         //then
-        assertArrayEquals(expected,OptionsParser.parser(args));
+        assertEquals(expected,OptionsParser.parse(args));
     }
-
+    @Test
+    void emptyParsersNothing() {
+        //given
+        String[] args = {""};
+        List<MoveDirection> expected = List.of();
+        //then
+        assertEquals(expected,OptionsParser.parse(args));
+    }
+    @Test
+    void spaceParsersNothing() {
+        //given
+        String[] args = {" "};
+        List<MoveDirection> expected = List.of();
+        //then
+        assertEquals(expected,OptionsParser.parse(args));
+    }
     @Test
     void otherThanLRFBParserNothing() {
         //given
         String[] args = {"a"};
-        MoveDirection[] expected = { };
+        List<MoveDirection> expected = List.of();
         //then
-        assertArrayEquals(expected,OptionsParser.parser(args));
+        assertEquals(expected,OptionsParser.parse(args));
     }
 
     @Test
@@ -59,10 +79,10 @@ class OptionsParserTest {
     {
         //given
         String[] args = {"f","b","h","r","l","6"};
-        MoveDirection[] expected = {MoveDirection.FORWARD, MoveDirection.BACKWARD,MoveDirection.RIGHT,MoveDirection.LEFT};
+        List<MoveDirection> expected = List.of(MoveDirection.FORWARD, MoveDirection.BACKWARD,MoveDirection.RIGHT,MoveDirection.LEFT);
         //then
-        assertArrayEquals(expected,OptionsParser.parser(args));
+        assertEquals(expected,OptionsParser.parse(args));
     }
 
-
+//
 }
