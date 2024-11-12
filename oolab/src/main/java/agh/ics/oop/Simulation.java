@@ -24,14 +24,14 @@ public class Simulation {
     }
 
     public void run() {
-       int animal_counter = Animals.size();
+       int animal_count = Animals.size();
        int counter=0;
 
        for(MoveDirection direction : Directions) {
            Animal animal = Animals.getFirst();
            Animals.removeFirst();
            Map.move(animal, direction);
-           System.out.println("Zwierze " + ((counter %animal_counter) + 1)+" "+ animal.toString());
+           System.out.println("Zwierze " + ((counter %animal_count) + 1)+" "+ animal.toString());
            System.out.println(Map);
            counter+=1;
            Animals.add(animal);

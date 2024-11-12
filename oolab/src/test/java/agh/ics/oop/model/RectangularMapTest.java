@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RectangularMapTest {
-    private static final Vector2d vector1 = new Vector2d(1,1);
     private static final Animal animal1 = new Animal(MapDirection.NORTH,new Vector2d(2,3));
     private static final Animal animal2 = new Animal(MapDirection.EAST,new Vector2d(3,4));
     @Test
@@ -64,5 +63,19 @@ class RectangularMapTest {
         map.move(animal2,MoveDirection.FORWARD);
         assertEquals(new Vector2d(2,4),animal1.getPosition());
         assertEquals(new Vector2d(4,4),animal2.getPosition());
+    }
+    @Test
+    public void ifToStringWorksCorrectly() {
+        String expectedMap = " y\\x  0 1 2 3 4\r\n" +
+                "  5: -----------\r\n" +
+                "  4: | | | | | |\r\n" +
+                "  3: | | |N| | |\r\n" +
+                "  2: | | | | | |\r\n" +
+                "  1: | | | | | |\r\n" +
+                "  0: | | | | | |\r\n" +
+                " -1: -----------\r\n";
+        RectangularMap map = new RectangularMap(5,5);
+        map.place(animal1);
+        assertEquals(expectedMap,map.toString());
     }
 }
