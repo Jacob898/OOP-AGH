@@ -12,10 +12,10 @@ public class Vector2d {
         this.y = y;
     }
 
-    public int get_x(int x){
+    public int getX(){
         return x;
     }
-    public int get_y(int y){
+    public int getY(){
         return y;
     }
     public String toString(){
@@ -71,14 +71,17 @@ public class Vector2d {
         return new Vector2d(-x, -y);
     }
 
-    public boolean equals(Object other){
-        if (this == other)
-            return true;
-        if (!(other instanceof Vector2d))
-            return false;
-        Vector2d that = (Vector2d) other;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector2d vector2d = (Vector2d) o;
+        return x == vector2d.x && y == vector2d.y;
+    }
 
-        return x == that.x && y == that.y;
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
 
