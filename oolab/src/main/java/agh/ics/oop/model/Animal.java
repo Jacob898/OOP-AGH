@@ -3,20 +3,21 @@ package agh.ics.oop.model;
 
 public class Animal {
     private MapDirection direction;
-    private Vector2d coordinates;
+    private Vector2d position;
 
     public Animal() {
         direction = MapDirection.NORTH;
-        coordinates = new Vector2d(2, 2);
+        position = new Vector2d(2, 2);
     }
 
-    public Animal(MapDirection direction, Vector2d coordinates) {
+    public Animal(MapDirection direction, Vector2d position) {
         this.direction = direction;
-        this.coordinates = coordinates;
+        this.position = position;
     }
+
     //getter
-    public Vector2d getCoordinates() {
-        return this.coordinates;
+    public Vector2d getPosition() {
+        return this.position;
     }
     //getter
     public MapDirection getDirection() {
@@ -24,18 +25,19 @@ public class Animal {
     }
 
     public String toString() {
-        return "Zwierze znajduje się na pozycji: " + this.coordinates.toString() + " i orientacji: "+ this.direction.toString();
+        return direction.toString();
     }
 
     public String toString(int numberOfAnimal){
-        return "Zwierze " + numberOfAnimal + " znajduje się na pozycji: " + this.coordinates.toString() + " i orientacji: "+ this.direction.toString();
+        return "Zwierze " + numberOfAnimal + " znajduje się na pozycji: " + this.position.toString() + " i orientacji: "+ this.direction.toString();
     }
 
     public boolean isAt(Vector2d position) {
-        return this.coordinates.equals(position);
+        return this.position.equals(position);
     }
 
-    public void move(MoveDirection direction) {
+    public void move(MoveDirection direction, MoveValidator validator) {
+
         switch (direction) {
             case RIGHT:
                 this.direction = this.direction.next();
@@ -46,14 +48,16 @@ public class Animal {
                 break;
 
             case FORWARD:
-                if(this.coordinates.add(this.direction.toUnitVector()).follows(new Vector2d(0,0)) && this.coordinates.add(this.direction.toUnitVector()).precedes(new Vector2d(4,4))) {
-                    this.coordinates = this.coordinates.add(this.direction.toUnitVector());
+                Vector2d newPositionF = this.position.add(this.direction.toUnitVector());
+                if(validator.canMoveTo(newPositionF) ){
+                    this.position = newPositionF;
                 }
                 break;
 
             case BACKWARD:
-                if(this.coordinates.subtract(this.direction.toUnitVector()).follows(new Vector2d(0,0)) && this.coordinates.subtract(this.direction.toUnitVector()).precedes(new Vector2d(4,4))) {
-                    this.coordinates = this.coordinates.subtract(this.direction.toUnitVector());
+                Vector2d newPositionB=this.position.subtract(this.direction.toUnitVector());
+                if(validator.canMoveTo(newPositionB)) {
+                    this.position = newPositionB;
                 }
                 break;
 

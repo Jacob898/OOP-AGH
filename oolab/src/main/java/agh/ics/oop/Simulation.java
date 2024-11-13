@@ -1,44 +1,51 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MapDirection;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
 
-    private List<Animal> animals;
-    private List<MoveDirection> directions;
-    private int currentMoveIndex;
+    private final List<Animal> Animals= new ArrayList<>();
+    private final List<MoveDirection> Directions;
+    private final WorldMap Map;
 
-    public Simulation(List<Vector2d> coordinates, List<MoveDirection> directions) {
-        this.animals = new ArrayList<>();
-        for (Vector2d coordinate : coordinates) {
-            animals.add(new Animal(MapDirection.NORTH, coordinate));
+    public Simulation(List<Vector2d> positions, List<MoveDirection> directions, WorldMap map) {
+        this.Map = map;
+        this.Directions=directions;
+        for (Vector2d position : positions) {
+            Animal animal = new Animal(MapDirection.NORTH, position);
+            if(map.place(animal)) {
+                Animals.add(animal);
+            }
         }
-        this.currentMoveIndex=0;
-        this.directions=directions;
+
+    }
+
+    public void run() {
+       int animal_count = Animals.size();
+       int counter=0;
+
+       for(MoveDirection direction : Directions) {
+           Animal animal = Animals.getFirst();
+           Animals.removeFirst();
+           Map.move(animal, direction);
+           System.out.println("Zwierze " + ((counter %animal_count) + 1)+" "+ animal.toString());
+           System.out.println(Map);
+           counter+=1;
+           Animals.add(animal);
+       }
+
     }
 
     //getter
     public List<Animal> getAnimals() {
-        return this.animals;
+        return Animals;
+    }
+    //getter
+    public List<MoveDirection> getDirections() {
+        return Directions;
     }
 
-    public void run() {
-        while(currentMoveIndex < directions.size()) {
-                for (int i = 0; i < animals.size(); i++) {
-                    if(currentMoveIndex >= directions.size()) {
-                        break;
-                    }
-                    MoveDirection movement = directions.get(currentMoveIndex);
-                    animals.get(i).move(movement);
-                    System.out.println(animals.get(i).toString(i));
-                    currentMoveIndex++;
-                }
-        }
-    }
 }
