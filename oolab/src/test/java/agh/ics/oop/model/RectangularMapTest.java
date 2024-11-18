@@ -66,6 +66,7 @@ class RectangularMapTest {
     }
     @Test
     public void ifToStringWorksCorrectly() {
+        Animal animal3 = new Animal(MapDirection.NORTH,new Vector2d(2,3));
         String expectedMap = " y\\x  0 1 2 3 4\r\n" +
                 "  5: -----------\r\n" +
                 "  4: | | | | | |\r\n" +
@@ -75,7 +76,7 @@ class RectangularMapTest {
                 "  0: | | | | | |\r\n" +
                 " -1: -----------\r\n";
         RectangularMap map = new RectangularMap(5,5);
-        map.place(animal1);
+        map.place(animal3);
         assertEquals(expectedMap,map.toString());
     }
 }
