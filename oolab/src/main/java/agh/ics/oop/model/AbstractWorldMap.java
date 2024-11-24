@@ -25,12 +25,12 @@ public abstract class AbstractWorldMap implements WorldMap {
         return animals.get(position);
     }
     @Override
-    public boolean place(Animal animal) {
+    public boolean place(Animal animal) throws IncorrectPositionException {
         if(canMoveTo(animal.getPosition())) {
             animals.put(animal.getPosition(), animal);
             return true;
         }
-        return false;
+        throw new IncorrectPositionException(animal.getPosition());
     }
     @Override
     public boolean canMoveTo(Vector2d position) {

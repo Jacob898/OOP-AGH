@@ -15,9 +15,14 @@ public class Simulation {
         this.Map = map;
         this.Directions=directions;
         for (Vector2d position : positions) {
-            Animal animal = new Animal(MapDirection.NORTH, position);
-            if(map.place(animal)) {
-                Animals.add(animal);
+
+                Animal animal = new Animal(MapDirection.NORTH, position);
+            try {
+                if(map.place(animal)) {
+                    Animals.add(animal);
+                }
+            } catch (IncorrectPositionException e){
+                System.out.println("Warning: " + e.getMessage());
             }
         }
 
