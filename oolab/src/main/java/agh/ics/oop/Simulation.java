@@ -37,7 +37,6 @@ public class Simulation {
            Animals.removeFirst();
            Map.move(animal, direction);
            System.out.println("Zwierze " + ((counter %animal_count) + 1)+" "+ animal.toString());
-           System.out.println(Map);
            counter+=1;
            Animals.add(animal);
        }
