@@ -29,19 +29,6 @@ public class GrassField extends AbstractWorldMap {
         mapTopRight = mapTopRight.upperRight(position);
     }
 
-//    public void generatePositions() {
-//        int mapSizeX= (int) Math.sqrt((double)grassFieldsAmount * 10) ;
-//        int mapSizeY = mapSizeX;
-//        int cnt = 0;
-//        while (cnt < grassFieldsAmount) {
-//            int x = (int) ((Math.random() * mapSizeX));
-//            int y = (int) ((Math.random() * mapSizeY));
-//            Vector2d grassField = new Vector2d(x, y);
-//            calculateMapSize(grassField);
-//            grass.put(grassField, new Grass(grassField));
-//            cnt++;
-//        }
-//    }
 
     @Override
     public void move(Animal animal, MoveDirection direction) {

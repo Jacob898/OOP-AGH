@@ -40,9 +40,10 @@ public abstract class AbstractWorldMap implements WorldMap {
     public boolean isOccupied(Vector2d position) {
         return objectAt(position) != null;
     }
+
     @Override
     public String toString() {
-        return visualizer.draw(mapBottomLeft, mapTopRight);
+        return visualizer.draw(getCurrentBounds().mapBottomLeft(), getCurrentBounds().mapTopRight());
     }
 
     @Override
@@ -50,4 +51,10 @@ public abstract class AbstractWorldMap implements WorldMap {
         List<WorldElement> elements = new ArrayList<>(animals.values());
         return elements;
     }
+
+    @Override
+    public Boundary getCurrentBounds(){
+        return new Boundary(mapBottomLeft, mapTopRight);
+    }
+
 }
