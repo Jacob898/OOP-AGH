@@ -1,61 +1,19 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.util.MapVisualizer;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class RectangularMap implements WorldMap {
+public class RectangularMap extends AbstractWorldMap {
     private final int width;
     private final int height;
-    private final Vector2d lowerLeft;
-    private final Vector2d upperRight;
-    private final MapVisualizer visualizer;
-    Map<Vector2d, Animal> animals = new HashMap<>();
 
     public RectangularMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.visualizer = new MapVisualizer(this);
-        this.lowerLeft = new Vector2d(0,0);
-        this.upperRight = new Vector2d(this.width-1, this.height-1);
-    }
-
-
-    @Override
-    public boolean place(Animal animal) {
-        if(canMoveTo(animal.getPosition())) {
-            animals.put(animal.getPosition(), animal);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void move(Animal animal, MoveDirection direction) {
-        Vector2d position = animal.getPosition();
-        animal.move(direction,this);
-        animals.remove(position, animal);
-        animals.put(animal.getPosition(), animal);
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return objectAt(position) != null;
-    }
-
-    @Override
-    public Animal objectAt(Vector2d position) {
-        return animals.get(position);
+        this.mapTopRight = new Vector2d(this.width - 1, this.height - 1);
     }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return position.follows(lowerLeft) && position.precedes(upperRight) && !isOccupied(position);
+        return position.follows(mapBottomLeft) && position.precedes(mapTopRight) && !isOccupied(position);
     }
 
-    @Override
-    public String toString() {
-        return visualizer.draw(lowerLeft, upperRight);
-    }
+
 }
