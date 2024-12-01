@@ -5,7 +5,7 @@ import agh.ics.oop.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable {
 
     private final List<Animal> Animals= new ArrayList<>();
     private final List<MoveDirection> Directions;
@@ -15,7 +15,6 @@ public class Simulation {
         this.Map = map;
         this.Directions=directions;
         for (Vector2d position : positions) {
-
                 Animal animal = new Animal(MapDirection.NORTH, position);
             try {
                 if(map.place(animal)) {
@@ -30,14 +29,11 @@ public class Simulation {
 
     public void run() {
        int animal_count = Animals.size();
-       int counter=0;
 
        for(MoveDirection direction : Directions) {
            Animal animal = Animals.getFirst();
            Animals.removeFirst();
            Map.move(animal, direction);
-           System.out.println("Zwierze " + ((counter %animal_count) + 1)+" "+ animal.toString());
-           counter+=1;
            Animals.add(animal);
        }
 
