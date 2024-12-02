@@ -1,8 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.util.MapVisualizer;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +10,6 @@ public class GrassField extends AbstractWorldMap {
 
     public GrassField(int grassFieldsAmount) {
         this.grassFieldsAmount = grassFieldsAmount;
-//        generatePositions();
         int maxWidth=(int) Math.sqrt((double)grassFieldsAmount * 10);
         int maxHeight = maxWidth;
 
@@ -29,32 +25,19 @@ public class GrassField extends AbstractWorldMap {
         mapTopRight = mapTopRight.upperRight(position);
     }
 
-//    public void generatePositions() {
-//        int mapSizeX= (int) Math.sqrt((double)grassFieldsAmount * 10) ;
-//        int mapSizeY = mapSizeX;
-//        int cnt = 0;
-//        while (cnt < grassFieldsAmount) {
-//            int x = (int) ((Math.random() * mapSizeX));
-//            int y = (int) ((Math.random() * mapSizeY));
-//            Vector2d grassField = new Vector2d(x, y);
-//            calculateMapSize(grassField);
-//            grass.put(grassField, new Grass(grassField));
-//            cnt++;
-//        }
-//    }
 
     @Override
     public void move(Animal animal, MoveDirection direction) {
         Vector2d position = animal.getPosition();
         animal.move(direction, this);
-            if (!position.equals(animal.getPosition())){
-                animals.put(animal.getPosition(), animal);
-                animals.remove(position);
-                int x = animal.getPosition().getX();
-                int y = animal.getPosition().getY();
-                Vector2d vec = new Vector2d(x, y);
-                calculateMapSize(vec);
-            }
+        animals.remove(position);
+        animals.put(animal.getPosition(), animal);
+        notifyObservers("Animal moved from " + position + " to " + animal.getPosition());
+
+        int x = animal.getPosition().getX();
+        int y = animal.getPosition().getY();
+        Vector2d newPosition = new Vector2d(x, y);
+        calculateMapSize(newPosition);
 
     }
 

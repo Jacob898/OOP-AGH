@@ -1,20 +1,24 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
-import agh.ics.oop.model.util.MapVisualizer;
-
-import static agh.ics.oop.OptionsParser.parse;
 
 import java.util.List;
 
 public class World {
     public static void main(String[] args) {
-        List<MoveDirection> directions = OptionsParser.parse(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,1), new Vector2d(3,3));
-        GrassField worldMap = new GrassField(10);
-//        WorldMap worldMap = new RectangularMap(5,5);
-        Simulation simulation = new Simulation(positions, directions, worldMap);
-        simulation.run();
+
+        try {
+            List<MoveDirection> directions = OptionsParser.parse(args);
+            List<Vector2d> positions = List.of(new Vector2d(2,1), new Vector2d(3,7));
+            AbstractWorldMap worldMap = new GrassField(10);
+            worldMap.addObserver(new ConsoleMapDisplay());
+        //        WorldMap worldMap = new RectangularMap(5,5);
+            Simulation simulation = new Simulation(positions, directions, worldMap);
+            simulation.run();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
 
 //        System.out.println("test");
 //        Animal animal = new Animal();

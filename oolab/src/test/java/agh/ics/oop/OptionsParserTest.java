@@ -50,38 +50,35 @@ class OptionsParserTest {
         assertEquals(expected,OptionsParser.parse(args));
     }
     @Test
-    void emptyParsersNothing() {
+    void emptyThrowsException() {
         //given
         String[] args = {""};
-        List<MoveDirection> expected = List.of();
         //then
-        assertEquals(expected,OptionsParser.parse(args));
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.parse(args));
     }
     @Test
-    void spaceParsersNothing() {
+    void spaceParsersException() {
         //given
         String[] args = {" "};
-        List<MoveDirection> expected = List.of();
+
         //then
-        assertEquals(expected,OptionsParser.parse(args));
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.parse(args));
     }
     @Test
-    void otherThanLRFBParserNothing() {
+    void otherThanLRFBThrowsException() {
         //given
         String[] args = {"a"};
-        List<MoveDirection> expected = List.of();
         //then
-        assertEquals(expected,OptionsParser.parse(args));
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.parse(args));
     }
 
     @Test
-    void parsersMultipleCorrectAndUncorrectDirections()
+    void parsersMultipleCorrectAndUncorrectThrowsException()
     {
         //given
         String[] args = {"f","b","h","r","l","6"};
-        List<MoveDirection> expected = List.of(MoveDirection.FORWARD, MoveDirection.BACKWARD,MoveDirection.RIGHT,MoveDirection.LEFT);
         //then
-        assertEquals(expected,OptionsParser.parse(args));
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.parse(args));
     }
 
 //
