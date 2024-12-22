@@ -28,13 +28,17 @@ public class Simulation implements Runnable {
     }
 
     public void run() {
-       int animal_count = Animals.size();
-
-       for(MoveDirection direction : Directions) {
-           Animal animal = Animals.getFirst();
-           Animals.removeFirst();
-           Map.move(animal, direction);
-           Animals.add(animal);
+//       int animal_count = Animals.size();
+       try {
+           for (MoveDirection direction : Directions) {
+               Thread.sleep(500);
+               Animal animal = Animals.getFirst();
+               Animals.removeFirst();
+               Map.move(animal, direction);
+               Animals.add(animal);
+           }
+       } catch (InterruptedException e) {
+           System.out.println("Warning: " + e.getMessage());
        }
 
     }
@@ -43,6 +47,7 @@ public class Simulation implements Runnable {
     public List<Animal> getAnimals() {
         return Animals;
     }
+
     //getter
     public List<MoveDirection> getDirections() {
         return Directions;
